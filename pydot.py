@@ -17,7 +17,7 @@ Copyright (c) 2005-2011 Ero Carrera <ero.carrera@gmail.com>
 Distributed under MIT license [http://opensource.org/licenses/mit-license.html].
 """
 
-__revision__ = "$LastChangedRevision$"
+__revision__ = "$LastChangedRevision: 28 $"
 __author__ = 'Ero Carrera'
 __version__ = '1.0.%d' % int( __revision__[21:-2] )
 __license__ = 'MIT'
@@ -800,6 +800,7 @@ class Node(object, Common):
         
         self.obj_dict['attributes']['style'] = ','.join( styles )
         
+        return self
 
     def to_string(self):
         """Returns a string representation of the node in dot language.
@@ -1288,7 +1289,7 @@ class Graph(object, Common):
 
         graph_node.set_sequence(self.get_next_sequence_number())
 
-
+        return self
 
     def del_node(self, name, index=None):
         """Delete a node from the graph.
@@ -1391,7 +1392,7 @@ class Graph(object, Common):
 
         graph_edge.set_parent_graph( self.get_parent_graph() )
 
-
+        return self
 
     def del_edge(self, src_or_list, dst=None, index=None):
         """Delete an edge from the graph.
@@ -1510,8 +1511,7 @@ class Graph(object, Common):
         
         sgraph.set_parent_graph( self.get_parent_graph() )
 
-
-
+        return self
     
     def get_subgraph(self, name):
         """Retrieved a subgraph from the graph.
@@ -1812,7 +1812,12 @@ class Dot(Graph):
             f.__doc__ = '''Refer to the docstring accompanying the 'write' method for more information.'''
         
         
-    
+    def _repr_svg_(self):
+        return self.create_svg()
+
+    def _repr_png_(self):
+        return self.create_png()
+
     def __getstate__(self):
         
         dict = copy.copy(self.obj_dict)
