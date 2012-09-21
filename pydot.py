@@ -1,4 +1,4 @@
-# -*- coding: Latin-1 -*-
+# -*- coding: utf-8 -*-
 """Graphviz's dot language Python interface.
 
 This module provides with a full interface to create handle modify
